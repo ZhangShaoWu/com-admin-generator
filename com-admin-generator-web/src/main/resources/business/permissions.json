@@ -1,0 +1,83 @@
+[
+  {
+    "id": 96,
+    "name": "模型层",
+    "perm": "model",
+    "url": "/?view=null",
+    "sort": 1,
+    "parentId": 0,
+    "icon": null,
+    "selected": false,
+    "typeName": "菜单栏",
+    "children": [
+      {
+        "id": 97,
+        "name": "列表",
+        "perm": "user:list",
+        "url": "/?view=model/index",
+        "sort": 1,
+        "parentId": 96,
+        "icon": null,
+        "selected": false,
+        "typeName": "菜单栏",
+        "children": null,
+        "hasChildren": 1
+      }
+    ],
+    "hasChildren": 0
+  },
+  {
+    "id": 107,
+    "name": "模板工程",
+    "perm": "project",
+    "url": "/?view=null",
+    "sort": 3,
+    "parentId": 0,
+    "icon": null,
+    "selected": false,
+    "typeName": "菜单栏",
+    "children": [
+      {
+        "id": 108,
+        "name": "列表",
+        "perm": "information:list",
+        "url": "/?view=project/index",
+        "sort": 1,
+        "parentId": 107,
+        "icon": null,
+        "selected": false,
+        "typeName": "菜单栏",
+        "children": null,
+        "hasChildren": 1
+      }
+    ],
+    "hasChildren": 0
+  },
+  {
+    "id": 113,
+    "name": "请求工具",
+    "perm": "request",
+    "url": "/?view=null",
+    "sort": 4,
+    "parentId": 0,
+    "icon": null,
+    "selected": false,
+    "typeName": "菜单栏",
+    "children": [
+      {
+        "id": 114,
+        "name": "列表",
+        "perm": "equipment:list",
+        "url": "/?view=request/index",
+        "sort": 1,
+        "parentId": 113,
+        "icon": null,
+        "selected": false,
+        "typeName": "菜单栏",
+        "children": null,
+        "hasChildren": 1
+      }
+    ],
+    "hasChildren": 0
+  }
+]

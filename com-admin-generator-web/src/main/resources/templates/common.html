@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <head th:fragment="header">
+        <link rel="stylesheet" th:href="@{/css/common.css}"/>
+        <link rel="stylesheet" th:href="@{/plugins/element-ui.css}"/>
+    </head>
+</body>
+
+
+<div th:fragment="footer">
+    <script type="text/javascript" th:src="@{plugins/vue.js}"></script>
+    <script type="text/javascript" th:src="@{/plugins/element-ui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/config.js}"></script>
+    <script type="text/javascript" th:src="@{/common/confirm.js}"></script>
+    <script type="text/javascript" th:src="@{/common/utils.js}"></script>
+    <script type="text/javascript" th:src="@{/common/msg.js}"></script>
+    <script type="text/javascript" th:src="@{/common/request.js}"></script>
+    <script type="text/javascript" th:src="@{/common/requestF.js}"></script>
+    <script type="text/javascript" th:src="@{/js/api.js}"></script>
+</div>
+</html>

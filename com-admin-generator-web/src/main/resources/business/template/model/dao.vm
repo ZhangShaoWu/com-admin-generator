@@ -1,0 +1,17 @@
+package $!{data.packageName}.dao;
+
+import $!{data.packageName}.entity.$!{data.entityName}Entity;
+import com.admin.framework.orm.support.BaseDao;
+import org.apache.ibatis.annotations.Mapper;
+
+
+/**
+ * $!{data.tableComment}
+ * @author $!{data.author}
+ * @date $!{data.date}
+ */
+@Mapper
+public interface $!{data.entityName}Dao extends BaseDao<$!{data.entityName}Entity,$!{data.idType}> {
+
+
+}

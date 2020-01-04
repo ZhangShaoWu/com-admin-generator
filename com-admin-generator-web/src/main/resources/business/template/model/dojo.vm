@@ -1,0 +1,98 @@
+package $!{data.packageName}.dojo;
+
+import $!{data.packageName}.entity.$!{data.entityName}Entity;
+import $!{data.packageName}.dao.$!{data.entityName}Dao;
+import com.admin.framework.orm.constant.ConditionExpressionEnum;
+import com.admin.framework.orm.dojo.BaseDojo;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * $!{data.tableComment}
+ * @author $!{data.author}
+ * @date $!{data.date}
+ */
+@Component
+public class $!{data.entityName}Dojo extends BaseDojo<$!{data.entityName}Entity>{
+
+
+    public $!{data.entityName}Dojo(){
+        super($!{data.entityName}Dao.class,$!{data.entityName}Entity.class,"$!{data.alias}");
+    }
+
+    #foreach($column in $!{data.columns})
+
+    public $!{data.entityName}Dojo $!{column.fieldName}OrderAsc(){
+        addSql("$!{column.fieldName}", ConditionExpressionEnum.ORDER_ASC);
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}OrderDesc(){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.ORDER_DESC);
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}Equal($!{column.javaType} $!{column.fieldName}){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.EQUALS,$!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}NotEqual($!{column.javaType} $!{column.fieldName}){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.NOT_EQUALS,$!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}Contain($!{column.javaType} $!{column.fieldName}){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.CONTAIN, $!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}Start(String $!{column.fieldName}){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.START, $!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}End($!{column.javaType} $!{column.fieldName}){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.END, $!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}Great($!{column.javaType} $!{column.fieldName}){
+        addSql("$!{column.fieldName}", ConditionExpressionEnum.GREATER, $!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}Less($!{column.javaType} $!{column.fieldName}){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.LESS, $!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}GreatEqual($!{column.javaType} $!{column.fieldName}){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.GREATER_EQUALS, $!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}LessEqual($!{column.javaType} $!{column.fieldName}){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.LESS_EQUALS, $!{column.fieldName});
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}Between(String start, String end){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.BETWEEN, start, end);
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}IsNull(){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.NULL);
+        return this;
+    }
+
+    public $!{data.entityName}Dojo $!{column.fieldName}IsNotNull(){
+        addSql("$!{column.fieldName}",ConditionExpressionEnum.NOT_NULL);
+        return this;
+    }
+    #end
+}

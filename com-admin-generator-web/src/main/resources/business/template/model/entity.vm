@@ -1,0 +1,42 @@
+package $!{data.packageName}.entity;
+
+#if($data.lombok)
+import lombok.Data;
+#end
+#if($data.dateFlag)
+import java.util.Date;
+#end
+#if($data.decimalFlag)
+import java.math.BigDecimal;
+#end
+
+/**
+ * $!{data.tableComment}
+ * @author $!{data.author}
+ * @date $!{data.date}
+ */
+#if($data.lombok)
+@Data
+#end
+public class $!{data.entityName}Entity{
+#foreach($column in ${data.columns})
+/**
+    *$!{column.columnComment}
+	 */
+    $!{column.nullMsg}
+	private $!{column.javaType} $!{column.fieldName};
+	#end
+
+#if(!$data.lombok)
+#foreach($column in $!{data.columns})
+    public $!{column.javaType} get$!{column.methodName}() {
+        return $!{column.fieldName};
+    }
+
+    public void set$!{column.methodName}($!{column.javaType} $!{column.fieldName}) {
+        this.$!{column.fieldName} = $!{column.fieldName};
+    }
+    #end
+#end
+
+}

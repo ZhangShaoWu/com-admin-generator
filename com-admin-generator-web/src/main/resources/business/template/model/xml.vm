@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="$!{data.packageName}.dao.$!{data.entityName}Dao" >
+    <select id="query" resultType="$!{data.packageName}.entity.$!{data.entityName}Entity">
+        select
+            <include refid="BaseColumnList"/>
+        from `$!{data.tableName}` $!{data.alias}
+        <where>
+            <if test="list != null and list.size() > 0">
+                <foreach collection="list" item="i">
+                ${i}
+            </foreach>
+            </if>
+        </where>
+    </select>
+
+    <sql id="BaseColumnList" >
+    #foreach($column in $!{data.columns})
+    $!{data.alias}.`$!{column.columnName}`#if($foreach.hasNext),#end
+
+    #end
+</sql>
+
+    <select id="page" resultType="$!{data.packageName}.entity.$!{data.entityName}Entity" flushCache="true">
+        select
+            <include refid="BaseColumnList"/>
+        from `$!{data.tableName}` $!{data.alias}
+    </select>
+
+    <insert id="save" parameterType="$!{data.packageName}.entity.$!{data.entityName}Entity" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `$!{data.tableName}`
+            (
+#foreach($column in $!{data.columns})
+#if($!{column.insert})
+            `$!{column.columnName}`#if($foreach.hasNext),
+#end
+#end
+#end
+
+            )
+        VALUES
+            (
+#foreach($column in $!{data.columns})
+#if($!{column.insert})
+            #{$!{column.fieldName}}#if($foreach.hasNext),
+#end
+#end
+#end
+
+            );
+    </insert>
+
+    <insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `$!{data.tableName}`
+            (
+#foreach($column in $!{data.columns})
+#if($!{column.insert})
+            `$!{column.columnName}`#if($foreach.hasNext),
+#end
+#end
+#end
+
+            )
+        VALUES
+        <foreach collection ="list" item="i" index= "index" separator =",">
+            (
+#foreach($column in $!{data.columns})
+#if($!{column.insert})
+            #{i.$!{column.fieldName}}#if($foreach.hasNext),
+#end
+#end
+#end
+
+            )
+            </foreach>
+    </insert>
+
+
+    <delete id="removeById">
+        delete
+        from
+            `$!{data.tableName}`
+        where
+            id = #{id}
+    </delete>
+
+    <delete id="batchRemovedByIds">
+        delete
+        from
+            `$!{data.tableName}`
+        where
+        id in
+        (
+          <foreach collection="ids" item="id" separator=",">
+            #{id}
+          </foreach>
+        )
+    </delete>
+
+     <update id="update">
+        update
+          `$!{data.tableName}`
+        <set>
+#foreach($column in $!{data.columns})
+#if($!{column.update})
+        <if test="$!{column.fieldName} != null and $!{column.fieldName} != ''">
+            `$!{column.columnName}` = #{$!{column.fieldName}}#if($foreach.hasNext),
+#end
+        </if>
+#end
+#end
+        </set>
+        where
+            id = #{id}
+        </update>
+
+</mapper>

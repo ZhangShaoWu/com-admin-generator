@@ -1,0 +1,29 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8000
+  servlet:
+    context-path: /
+spring:
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+mybatis:
+  mapper-locations: classpath:**/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.*.entity  # 注意：对应实体类的路径
+  configuration:
+    multiple-result-sets-enabled: true
+    mapUnderscoreToCamelCase: true
+    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl

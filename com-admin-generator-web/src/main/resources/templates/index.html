@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <div th:include="common::header"></div>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
+    <style type="text/css">
+        .form-card{
+            display: inline-block;
+            vertical-align: top;
+            padding: 30px;
+        }
+        .form-card .header{
+            padding: 10px;
+            font-size: 23px;
+            font-weight: 700;
+        }
+        .search-div{
+            text-align: right;
+            padding: 26px 50px;
+            background: #fff;
+        }
+        .search-div .search-input{
+            width: 30%;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <div class="search-div">
+            <el-input class="search-input" clearable placeholder="请输入内容" prefix-icon="el-icon-search" v-model="search"></el-input>
+            <el-button type="primary" @click="getTables">查询</el-button>
+            <el-button type="primary" @click="genFormDialogShow = true;">设置</el-button>
+            <el-button type="primary" @click="gen">生成</el-button>
+        </div>
+        <el-table
+                v-loading="tableLoading"
+                ref="multipleTable"
+                :data="tables"
+                border
+                @select="selectF"
+                @select-all="selectF"
+                style="width: 100%">
+            <el-table-column type="selection" width="55"></el-table-column>
+            <el-table-column prop="tableName" label="表名"></el-table-column>
+            <el-table-column prop="tableComment" label="说明"></el-table-column>
+            <el-table-column prop="tableSchema" label="所属数据库"></el-table-column>
+            <el-table-column prop="engine" label="引擎"></el-table-column>
+            <el-table-column prop="tableCollation" label="字符集"></el-table-column>
+        </el-table>
+
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="page.currentPage"
+                :page-sizes="[10, 20, 30, 40,50]"
+                :page-size="page.pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="page.total">
+        </el-pagination>
+
+
+        <el-dialog title="设置" :visible.sync="genFormDialogShow" width="55%">
+            <el-form :model="genForm" ref="genForm">
+                    <div class="form-card" style="border-right: 1px solid;" >
+                        <div class="header">
+                            <span>数据库信息</span>
+                        </div>
+                        <el-form-item label="主机地址:" label-width="120px" prop="host" :rules="[{ required: true, message: '请输入主机地址'}]">
+                            <el-input v-model="genForm.host" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="端口:" label-width="120px" prop="port" :rules="[{ required: true, message: '请输入端口'}]">
+                            <el-input v-model="genForm.port" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="用户名:" label-width="120px" prop="user" :rules="[{ required: true, message: '请输入用户名'}]">
+                            <el-input v-model="genForm.user" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="密码:" label-width="120px" prop="password" :rules="[{ required: true, message: '请输入密码'}]">
+                            <el-input v-model="genForm.password" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="数据库名称:" label-width="120px" prop="dbName" :rules="[{ required: true, message: '请输入数据库名称'}]">
+                            <el-input v-model="genForm.dbName" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="form-card">
+                        <div class="header">
+                            <span>代码配置信息</span>
+                        </div>
+                        <el-form-item label="包名:" label-width="120px" prop="packageName" :rules="[{ required: true, message: '请输入包名'}]">
+                            <el-input v-model="genForm.packageName" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="作者:" label-width="120px" prop="author" :rules="[{ required: true, message: '请输入作者'}]">
+                            <el-input v-model="genForm.author" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="lombok:" label-width="120px" prop="lombok" :rules="[{ required: true, message: '请选择是否启用lombok'}]">
+                            <el-switch
+                                    v-model="genForm.lombok"
+                                    active-color="#13ce66"
+                                    inactive-color="#ff4949"
+                                    active-value="1"
+                                    inactive-value="0">
+                            </el-switch>
+                        </el-form-item>
+                    </div>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="genFormDialogShow = false">取 消</el-button>
+                <el-button type="primary" @click="setting">确 定</el-button>
+            </div>
+        </el-dialog>
+
+    </div>
+</body>
+<div th:include="common::footer"></div>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+</html>
